@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oferta para Felipe, Sabrina & Judah</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #f0e8df;
+    --blush: #e8c9b8;
+    --terracotta: #c4836a;
+    --dusty-rose: #d4998a;
+    --sage: #8a9e8c;
+    --warm-brown: #9c6b58;
+    --soft-white: #faf6f2;
+    --text-dark: #5c4a40;
+    --text-muted: #a08070;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background-color: var(--beige);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ---- BACKGROUND ---- */
+  .bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #f0e0d4;
+  }
+
+  .bg-canvas svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ---- LAYOUT ---- */
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* ---- HEADER ---- */
+  .header {
+    text-align: center;
+    margin-bottom: 52px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .header .eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(36px, 6vw, 56px);
+    line-height: 1.15;
+    color: var(--warm-brown);
+    margin-bottom: 10px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .header .subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+
+  /* ---- QUOTE ---- */
+  .quote-block {
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(6px);
+    border-left: 2px solid var(--dusty-rose);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 0 auto 52px;
+    max-width: 560px;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+
+  .quote-block p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--warm-brown);
+  }
+
+  .quote-block cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 11px;
+    font-style: normal;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  /* ---- OBS BLOCK ---- */
+  .obs-block {
+    background: rgba(212, 153, 138, 0.12);
+    border: 1px solid rgba(212, 153, 138, 0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    text-align: center;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+
+  .obs-block strong { color: var(--warm-brown); font-weight: 500; }
+
+  /* ---- SECTION ---- */
+  .section {
+    margin-bottom: 36px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--terracotta);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(196,131,106,0.4), transparent);
+  }
+
+  /* ---- ITEM CARD ---- */
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .item-card {
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .item-card:hover:not(.donated) {
+    background: rgba(255,255,255,0.75);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border-color: rgba(212,153,138,0.5);
+  }
+
+  .item-card.donated {
+    opacity: 0.45;
+    cursor: default;
+    background: rgba(230,220,215,0.3);
+    pointer-events: none;
+  }
+
+  .item-card.donated .item-name {
+    text-decoration: line-through;
+    color: var(--text-muted);
+  }
+
+  .item-name {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-dark);
+    flex: 1;
+  }
+
+  .item-badge {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s;
+  }
+
+  .item-card:not(.donated) .item-badge {
+    background: rgba(196,131,106,0.12);
+    color: var(--terracotta);
+    border: 1px solid rgba(196,131,106,0.3);
+  }
+
+  .item-card.donated .item-badge {
+    background: rgba(138,158,140,0.15);
+    color: var(--sage);
+    border: 1px solid rgba(138,158,140,0.3);
+  }
+
+  /* ---- MODAL ---- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(92,74,64,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--soft-white);
+    border-radius: 20px;
+    padding: 36px 32px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+    text-align: center;
+    animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .modal .heart-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .modal h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--warm-brown);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .modal p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .modal p strong { color: var(--terracotta); font-weight: 500; }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-whatsapp:hover {
+    background: #1ebe5d;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+  }
+
+  .btn-cancel {
+    background: none;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+    transition: color 0.2s;
+  }
+
+  .btn-cancel:hover { color: var(--text-dark); }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(196,131,106,0.2);
+    animation: fadeUp 0.9s 0.4s ease both;
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .footer .names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--terracotta);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.35s; }
+  .section:nth-child(5) { animation-delay: 0.4s; }
+  .section:nth-child(6) { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND SVG INSPIRED BY UPLOADED IMAGE -->
+<div class="bg-canvas">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1440" height="900" fill="#f0ddd3"/>
+    <!-- Blobs -->
+    <ellipse cx="120" cy="480" rx="160" ry="190" fill="#c4836a" opacity="0.35"/>
+    <ellipse cx="1380" cy="620" rx="170" ry="180" fill="#d4998a" opacity="0.3"/>
+    <ellipse cx="200" cy="750" rx="140" ry="90" fill="#e8c9b8" opacity="0.5"/>
+    <ellipse cx="1100" cy="180" rx="200" ry="130" fill="#ddb8a8" opacity="0.28"/>
+    <!-- Brush strokes -->
+    <path d="M 800 60 Q 1050 40 1280 100 Q 1350 120 1300 150 Q 1100 100 800 120 Z" fill="#e8c9b8" opacity="0.55"/>
+    <path d="M 300 800 Q 500 780 700 820 Q 750 840 700 860 Q 500 830 290 850 Z" fill="#ddb8a8" opacity="0.4"/>
+    <!-- Wavy lines -->
+    <path d="M 0 350 Q 200 280 400 360 Q 600 440 800 340 Q 1000 240 1200 350 Q 1350 420 1440 380" stroke="#c4836a" stroke-width="1.5" fill="none" opacity="0.3"/>
+    <path d="M 100 500 Q 350 420 600 520 Q 850 620 1100 480 Q 1300 380 1440 450" stroke="#a08070" stroke-width="1" fill="none" opacity="0.25"/>
+    <!-- Leaf outlines top-left -->
+    <g opacity="0.3" transform="translate(30, 30)">
+      <path d="M 60 80 Q 40 50 20 30 Q 10 20 20 30 Q 40 50 60 80 Z" stroke="#8a9e8c" stroke-width="1.2" fill="none"/>
+      <path d="M 60 80 Q 80 50 90 25 Q 85 15 90 25 Q 80 50 60 80 Z" stroke="#8a9e8c" stroke-width="1.2" fill="none"/>
+      <line x1="60" y1="80" x2="55" y2="20" stroke="#8a9e8c" stroke-width="1" opacity="0.5"/>
+    </g>
+    <!-- Tiny flower top-right -->
+    <g opacity="0.28" transform="translate(1340, 40)">
+      <circle cx="20" cy="25" r="3" stroke="#8a9e8c" stroke-width="1" fill="none"/>
+      <line x1="20" y1="28" x2="20" y2="50" stroke="#8a9e8c" stroke-width="1"/>
+      <path d="M 14 20 Q 20 14 26 20" stroke="#8a9e8c" stroke-width="1" fill="none"/>
+      <path d="M 14 30 Q 20 36 26 30" stroke="#8a9e8c" stroke-width="1" fill="none"/>
+      <path d="M 12 25 Q 6 25 12 25" stroke="#8a9e8c" stroke-width="1" fill="none"/>
+      <path d="M 28 25 Q 34 25 28 25" stroke="#8a9e8c" stroke-width="1" fill="none"/>
+    </g>
+    <!-- Bottom botanical -->
+    <g opacity="0.25" transform="translate(60, 750)">
+      <path d="M 20 60 Q 10 40 0 20" stroke="#8a9e8c" stroke-width="1.2" fill="none"/>
+      <path d="M 20 60 Q 30 40 40 20" stroke="#8a9e8c" stroke-width="1.2" fill="none"/>
+      <ellipse cx="0" cy="18" rx="8" ry="12" stroke="#8a9e8c" stroke-width="1" fill="none" transform="rotate(-15,0,18)"/>
+      <ellipse cx="40" cy="18" rx="8" ry="12" stroke="#8a9e8c" stroke-width="1" fill="none" transform="rotate(15,40,18)"/>
+      <line x1="20" y1="60" x2="20" y2="90" stroke="#8a9e8c" stroke-width="1.2"/>
+    </g>
+    <!-- Right botanical -->
+    <g opacity="0.2" transform="translate(1360, 700)">
+      <path d="M 20 70 Q 5 50 0 30" stroke="#8a9e8c" stroke-width="1" fill="none"/>
+      <path d="M 20 70 Q 35 50 40 30" stroke="#8a9e8c" stroke-width="1" fill="none"/>
+      <ellipse cx="0" cy="28" rx="7" ry="11" stroke="#8a9e8c" stroke-width="1" fill="none" transform="rotate(-20,0,28)"/>
+      <ellipse cx="40" cy="28" rx="7" ry="11" stroke="#8a9e8c" stroke-width="1" fill="none" transform="rotate(20,40,28)"/>
+    </g>
+    <!-- Dots texture -->
+    <g opacity="0.18">
+      <circle cx="100" cy="420" r="1.5" fill="#c4836a"/>
+      <circle cx="110" cy="430" r="1.5" fill="#c4836a"/>
+      <circle cx="120" cy="415" r="1.5" fill="#c4836a"/>
+      <circle cx="90" cy="440" r="1.5" fill="#c4836a"/>
+      <circle cx="130" cy="440" r="1.5" fill="#c4836a"/>
+      <circle cx="105" cy="450" r="1.5" fill="#c4836a"/>
+    </g>
+  </svg>
+</div>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header class="header">
+    <p class="eyebrow">À igreja, com carinho,</p>
+    <h1>Uma nova <em>casa</em><br>para Felipe, Sabrina & Judah</h1>
+    <p class="subtitle">
+      Queremos abençoar o novo lar dos nossos irmãos que estão se mudando para a cidade. Se você deseja participar deste momento com uma doação, sua contribuição será recebida com alegria como um gesto de comunhão e cuidado.
+    </p>
+  </header>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <p>"Cada homem deve dar segundo propôs no seu coração, não com tristeza, nem por necessidade; porque Deus ama ao que dá com alegria."</p>
+    <cite>— 2 Coríntios 9:7</cite>
+  </div>
+
+  <!-- OBS -->
+  <div class="obs-block">
+    <strong>💛 Uma observação carinhosa:</strong> os itens não precisam ser novos! O que importa é que venham com amor. Um sofá que já contou histórias, uma estante cheia de memórias — tudo isso pode começar um novo capítulo na casa deles. Deus honra o que é dado com o coração.
+  </div>
+
+  <!-- SECTIONS -->
+  <div id="items-container"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Agradecemos a cada irmão pela generosidade e pelo coração disposto em servir. Que o Senhor Jesus abençoe a todos, tanto os que puderam ofertar quanto os que se unem a nós em oração, pois em cada gesto reconhecemos a soberania de Deus sobre todas as áreas de nossas vidas.</p>
+    <p class="names">Felipe · Sabrina · Judah ✦</p>
+  </footer>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="heart-icon">🌿</div>
+    <h2 id="modal-title">Você quer ofertar este item?</h2>
+    <p id="modal-body">Ao clicar em continuar, você será direcionado ao WhatsApp para confirmar sua oferta. <strong>Só será marcado como doado após o envio da mensagem.</strong></p>
+    <a id="modal-wa-btn" class="btn-whatsapp" href="#" target="_blank" onclick="confirmDonation()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Confirmar pelo WhatsApp
+    </a>
+    <button class="btn-cancel" onclick="closeModal()">Cancelar, voltar à lista</button>
+  </div>
+</div>
+
+<script>
+  // ---- DATA ----
+  const sections = [
+    {
+      title: "🍳 Cozinha",
+      items: ["Filtro de água", "Armário", "Mesa com cadeiras"]
+    },
+    {
+      title: "🛋️ Sala",
+      items: ["Sofá", "Mesa de centro"]
+    },
+    {
+      title: "🫧 Lavanderia",
+      items: ["Máquina de lavar"]
+    },
+    {
+      title: "🛏️ Quarto",
+      items: ["Cama / Colchão", "Guarda-roupa", "Espelho", "Ferro de passar"]
+    },
+    {
+      title: "🌙 Quartinho do Judah",
+      items: ["Poltrona ou cadeira para amamentação", "Ventilador"]
+    },
+    {
+      title: "📚 Escritório",
+      items: ["Estante para livros", "Mesa de estudo"]
+    },
+    {
+      title: "🛁 Cama, Mesa e Banho",
+      items: [
+        "Jogo de cama de casal (1)",
+        "Jogo de cama de casal (2)",
+        "Jogo de cama de casal (3)",
+        "Jogo de toalha (1)",
+        "Jogo de toalha (2)",
+        "Jogo de toalha (3)"
+      ]
+    }
+  ];
+
+  // ---- JSONBin.io CONFIG ----
+  // Instruções para configurar:
+  // 1. Acesse https://jsonbin.io e crie uma conta gratuita
+  // 2. Clique em "Create Bin" e cole o conteúdo: {"donated":[]}
+  // 3. Copie o BIN ID (ex: 6650f3e1acd3cb34a8a3f123) e cole abaixo
+  // 4. Vá em Account > API Keys, copie sua Master Key e cole abaixo
+  const BIN_ID  = '69a98374d0ea881f40f1ae06';
+  const API_KEY = '$2a$10$jNZybxt6AVs6e5k8UdCyw.63U/HrJOvh93dFmkhuRymL4vL3bR.FK';
+  const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+  let donatedCache = [];
+
+  async function fetchDonated() {
+    try {
+      const res = await fetch(BIN_URL + '/latest', {
+        headers: { 'X-Master-Key': API_KEY }
+      });
+      const data = await res.json();
+      donatedCache = data.record?.donated || [];
+    } catch(e) {
+      console.warn('Erro ao buscar doações:', e);
+      donatedCache = [];
+    }
+  }
+
+  async function saveDonated(list) {
+    try {
+      await fetch(BIN_URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': API_KEY
+        },
+        body: JSON.stringify({ donated: list })
+      });
+    } catch(e) {
+      console.warn('Erro ao salvar doação:', e);
+    }
+  }
+
+  // ---- LOADING STATE ----
+  function showLoading() {
+    const container = document.getElementById('items-container');
+    container.innerHTML = `
+      <div style="text-align:center;padding:60px 0;color:var(--text-muted);font-size:14px;letter-spacing:0.05em;">
+        <div style="margin-bottom:12px;font-size:22px;animation:spin 1.2s linear infinite;display:inline-block">🌿</div>
+        <p>Carregando lista de itens…</p>
+      </div>`;
+  }
+
+  // ---- RENDER ----
+  function render() {
+    const donated = donatedCache;
+    const container = document.getElementById('items-container');
+    container.innerHTML = '';
+
+    sections.forEach(section => {
+      const sec = document.createElement('div');
+      sec.className = 'section';
+
+      const title = document.createElement('h2');
+      title.className = 'section-title';
+      title.textContent = section.title;
+      sec.appendChild(title);
+
+      const list = document.createElement('div');
+      list.className = 'item-list';
+
+      section.items.forEach(item => {
+        const isDonated = donated.includes(item);
+        const card = document.createElement('div');
+        card.className = 'item-card' + (isDonated ? ' donated' : '');
+
+        const name = document.createElement('span');
+        name.className = 'item-name';
+        name.textContent = item;
+
+        const badge = document.createElement('span');
+        badge.className = 'item-badge';
+        badge.textContent = isDonated ? 'Já ofertado ✓' : 'Quero ofertar';
+
+        card.appendChild(name);
+        card.appendChild(badge);
+
+        if (!isDonated) {
+          card.addEventListener('click', () => openModal(item));
+        }
+
+        list.appendChild(card);
+      });
+
+      sec.appendChild(list);
+      container.appendChild(sec);
+    });
+  }
+
+  // ---- MODAL ----
+  let pendingItem = null;
+
+  function openModal(item) {
+    pendingItem = item;
+    document.getElementById('modal-title').textContent = 'Você quer ofertar: "' + item + '"?';
+    document.getElementById('modal-body').innerHTML =
+      'Que alegria! Ao clicar em continuar, você irá para o WhatsApp para confirmar. <strong>O item só será marcado como doado após o envio da mensagem.</strong>';
+
+    const message = encodeURIComponent('Olá irmãos! vamos ofertar com o item "' + item + '".');
+    const waUrl = 'https://wa.me/5519982871274?text=' + message;
+    document.getElementById('modal-wa-btn').href = waUrl;
+
+    document.getElementById('modal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    pendingItem = null;
+  }
+
+  async function confirmDonation() {
+    if (!pendingItem) return;
+    const item = pendingItem;
+    closeModal();
+
+    if (!donatedCache.includes(item)) {
+      donatedCache = [...donatedCache, item];
+      render(); // atualiza visual imediatamente
+      await saveDonated(donatedCache); // salva na nuvem
+    }
+  }
+
+  // Close modal on overlay click
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ---- INIT ----
+  (async () => {
+    showLoading();
+    await fetchDonated();
+    render();
+  })();
+</script>
+</body>
+</html>
