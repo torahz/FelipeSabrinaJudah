@@ -134,6 +134,21 @@
 
   .obs-block strong { color: var(--warm-brown); font-weight: 500; }
 
+  .alert-block {
+    background: rgba(138, 158, 140, 0.12);
+    border: 1px solid rgba(138, 158, 140, 0.35);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    text-align: center;
+    animation: fadeUp 0.9s 0.25s ease both;
+  }
+
+  .alert-block strong { color: var(--warm-brown); font-weight: 500; }
+
   .section {
     margin-bottom: 36px;
     animation: fadeUp 0.9s ease both;
@@ -499,6 +514,10 @@
     <strong>💛 Uma observação carinhosa:</strong> os itens não precisam ser novos! O que importa é que venham com amor. Um sofá que já contou histórias, uma estante cheia de memórias — tudo isso pode começar um novo capítulo na casa deles. Deus honra o que é dado com o coração.
   </div>
 
+  <div class="alert-block">
+    <strong>⚠️ Atenção:</strong> ao clicar em "Quero ofertar", você será direcionado ao WhatsApp para confirmar sua doação. <strong>É fundamental que a mensagem seja enviada</strong>, pois é ela que identifica quem está ofertando e reserva o item. Sem o envio, o item continuará aparecendo como disponível e outro irmão poderá selecioná-lo sem saber que já foi reservado.
+  </div>
+
   <div id="items-container"></div>
 
   <div class="pix-section">
@@ -547,7 +566,7 @@
     { title: "🍳 Cozinha",           items: ["Filtro de água", "Armário", "Mesa com cadeiras"] },
     { title: "🛋️ Sala",              items: ["Sofá", "Mesa de centro"] },
     { title: "🫧 Lavanderia",         items: ["Máquina de lavar"] },
-    { title: "🛏️ Quarto",            items: ["Cama / Colchão", "Guarda-roupa", "Espelho", "Ferro de passar"] },
+    { title: "🛏️ Quarto",            items: ["Cama", "Colchão", "Guarda-roupa", "Espelho", "Ferro de passar"] },
     { title: "🌙 Quartinho do Judah", items: ["Poltrona ou cadeira para amamentação", "Ventilador"] },
     { title: "📚 Escritório",         items: ["Estante para livros", "Mesa de estudo"] },
     {
